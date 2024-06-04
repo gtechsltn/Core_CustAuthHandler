@@ -1,0 +1,6 @@
+@Core_CustAuthHandler_HostAddress = http://localhost:5282
+
+GET {{Core_CustAuthHandler_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
