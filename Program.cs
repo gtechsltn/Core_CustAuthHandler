@@ -1,6 +1,7 @@
 using Core_CustAuthHandler.CustomAutentication;
 using Core_CustAuthHandler.Models;
 using Core_CustAuthHandler.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +41,7 @@ app.UseAuthorization();
 // Adding Endpoints
 app.MapPost("/api/register", async (IUserService serv, User user) => { 
     await serv.CreateUserAsync(user);
-    return Results.Created($"The User: {user.UserName} is created successfully!!");
+    return Results.Ok   ($"The User: {user.UserName} is created successfully!!");
 });
 
 app.MapPost("/api/authuser", async(IUserService serv, User user) => { 
