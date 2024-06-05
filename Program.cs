@@ -2,21 +2,29 @@ using Core_CustAuthHandler.CustomAutentication;
 using Core_CustAuthHandler.Models;
 using Core_CustAuthHandler.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+});
+
 builder.Services.AddDbContext<AppSecurityContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppSecurityDbContext"));
 });
 
+
+
 builder.Services.AddScoped<IUserService, UserService>();
 
 // Register the Custion Authentication Handler
-builder.Services.AddAuthentication("BasicAuthentication")
-        .AddScheme<AuthSchemeOptions, AuthHandler>("BasicAuthentication",null);
+builder.Services.AddAuthentication("Basic")
+        .AddScheme<AuthSchemeOptions, AuthHandler>("Basic",null);
 builder.Services.AddAuthorization();
 
 

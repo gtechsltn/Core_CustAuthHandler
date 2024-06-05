@@ -42,12 +42,10 @@ namespace Core_CustAuthHandler.CustomAutentication
             {
                 //3.a. Parse 
                 var authValues = AuthenticationHeaderValue.Parse(headerAuthValues);
-                //3.b. Convert from Base 64 String
-                var authValuesBytes = Convert.FromBase64String(authValues.Parameter);
-                // 3.c. Now Split by :
-                var authCredentials = Encoding.UTF8.GetString(authValuesBytes).Split(new[] { ':' }, 2);
-                // 3.d. Read the UserName as Password
-                User? authUser = new User() 
+                 
+                var authCredentials = authValues.Parameter.Split(new[] { ':' }, 2);
+                // 3.b. Read the UserName as Password
+                User ? authUser = new User() 
                 {
                   UserName= authCredentials[0],
                   Password= authCredentials[1]
@@ -58,7 +56,7 @@ namespace Core_CustAuthHandler.CustomAutentication
                 if(!isAuthenticate)
                     return AuthenticateResult.Fail("User Autheitcation Failed");
 
-                // 3.e. Lets Claim the Authentication Ticket
+                // 3.c. Lets Claim the Authentication Ticket
                 // Read the UserId from the UserName
                 var id = (await userService.GetUserAsync(authUser.UserName)).UserId;
                 // Set the Claims
@@ -75,7 +73,7 @@ namespace Core_CustAuthHandler.CustomAutentication
             }
             catch (Exception ex)
             {
-                return AuthenticateResult.Fail("Invvalid Authorization header ");
+                return AuthenticateResult.Fail("Invalid Authorization header ");
             }
         }
     }

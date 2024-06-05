@@ -13,7 +13,7 @@ Create Table Users (
 
 Insert into Users (FirstName, LastName,Email,UserName, Password)
 Values (
-  'Mahesh', 'Sabnis', 'mahesh.sabnis@myemail.com','mahsab','P@ssw0rd_'
+  'user', 'app', 'user.app@myemail.com','usrapp','P2ssword_'
 );
 
 Select * from Users;
