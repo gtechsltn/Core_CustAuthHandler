@@ -55,7 +55,6 @@ app.MapPost("/api/register", async (IUserService serv, User user) => {
 app.MapPost("/api/authuser", async(IUserService serv, User user) => { 
 
     var result  = await serv.AuthenticateUserAsync(user);
-    
     return result;
 });
 
